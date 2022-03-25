@@ -4,9 +4,9 @@
 name: Build and Deploy Logic App
 
 env:
-  LA_NAME: 'logic-eis-dev-auea'
-  APIM_NAME: 'apim-eis-dev-auea'
-  WORKFLOW_NAME: 'eisHttpRequest'
+  LA_NAME: 'enterprise-starter-logic-app'
+  APIM_NAME: 'enterprise-starter-apim'
+  WORKFLOW_NAME: 'eisHttpRequest2'
 on:
   workflow_dispatch:
   # Trigger the workflow every time the Bicep EIS Deployment workflow ran to completion
