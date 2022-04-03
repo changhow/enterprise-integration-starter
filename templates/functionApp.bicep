@@ -34,16 +34,6 @@ resource appServiceFunctionApp 'Microsoft.Web/sites@2020-10-01'= {
     serverFarmId: appServicePlanFunctionApp.id
     siteConfig:{
       linuxFxVersion: 'PYTHON|3.9'
-    }
-  }
-}
-
-var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountDetails.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountDetails.id, storageAccountDetails.apiVersion).keys[0].value}'
-
-resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
-  name: '${appServiceFunctionApp.name}/appsettings'
-  properties: {
-    siteConfig:{
       appSettings:[
         {
           name: 'AzureWebJobsStorage'
@@ -58,6 +48,16 @@ resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
           value: '~4'
         }
       ]
+    }
+  }
+}
+
+var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountDetails.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountDetails.id, storageAccountDetails.apiVersion).keys[0].value}'
+
+resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
+  name: '${appServiceFunctionApp.name}/appsettings'
+  properties: {
+    siteConfig:{
       cors:{
         allowedOrigins: [
           'https://portal.azure.com'
