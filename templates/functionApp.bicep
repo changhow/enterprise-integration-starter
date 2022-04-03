@@ -25,6 +25,8 @@ resource appServicePlanFunctionApp 'Microsoft.Web/serverfarms@2020-10-01' = {
   }
 }
 
+var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountDetails.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountDetails.id, storageAccountDetails.apiVersion).keys[0].value}'
+
 resource appServiceFunctionApp 'Microsoft.Web/sites@2020-10-01'= {
   name: functionAppName
   kind: 'functionapp'
@@ -48,16 +50,6 @@ resource appServiceFunctionApp 'Microsoft.Web/sites@2020-10-01'= {
           value: '~4'
         }
       ]
-    }
-  }
-}
-
-var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountDetails.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountDetails.id, storageAccountDetails.apiVersion).keys[0].value}'
-
-resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
-  name: '${appServiceFunctionApp.name}/appsettings'
-  properties: {
-    siteConfig:{
       cors:{
         allowedOrigins: [
           'https://portal.azure.com'
@@ -66,6 +58,21 @@ resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
     }
   }
 }
+
+
+
+// resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
+//   name: '${appServiceFunctionApp.name}/appsettings'
+//   properties: {
+//     siteConfig:{
+//       cors:{
+//         allowedOrigins: [
+//           'https://portal.azure.com'
+//         ]
+//       }
+//     }
+//   }
+// }
 
 // param location string
 
