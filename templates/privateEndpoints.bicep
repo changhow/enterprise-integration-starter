@@ -7,6 +7,7 @@ param logicAppPrivateEndpointName string
 param storageAccountPrivateLinkName string
 param storageAccountPrivateEndpointName string
 param logicAppName string
+param functionAppName string
 param defaultSubnetName string
 
 resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' existing = {
@@ -20,6 +21,10 @@ resource defaultSubnet 'Microsoft.Network/virtualNetworks/subnets@2020-06-01' ex
 
 resource logicApp 'Microsoft.Web/sites@2020-12-01' existing = {
   name: logicAppName
+}
+
+resource functionApp 'Microsoft.Web/sites@2020-12-01' existing = {
+  name: functionAppName
 }
 
 module privateEndpointLogicAppModule './networkingPrivateEndpoint.bicep' = {

@@ -1,5 +1,6 @@
 param apimName string 
 param logicAppName string 
+param functionAppName string 
 param vnetName string
 param apimSkuName string
 param apimSkuCapacity int
@@ -22,6 +23,10 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' existing = {
 
 resource logicApp 'Microsoft.Web/sites@2020-12-01' existing = {
   name: logicAppName
+}
+
+resource functionApp 'Microsoft.Web/sites@2021-03-01' existing = {
+  name: functionAppName
 }
 
 resource apim 'Microsoft.ApiManagement/service@2021-01-01-preview' = {

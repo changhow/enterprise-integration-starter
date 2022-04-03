@@ -3,6 +3,8 @@ param storageAccountType string
 param logicAppName string
 param logicAppAspName string
 param logicAppAspSku object
+param functionAppName string
+param functionAppAspName string
 param vnetName string
 param subnets object
 param dnsZoneNameSites string
@@ -25,6 +27,18 @@ module storageAccountModule './storageAccount.bicep' = {
     storageAccountName: storageAccountName
     storageAccountType: storageAccountType
   }
+}
+
+module functionAppModule './functionApp.bicep'={
+  name: 'rg-deploy-${functionAppName}'
+  params:{
+    functionAppAspName:functionAppAspName
+    functionAppName:functionAppName
+    storageAccountDetails:storageAccountModule.outputs.storageAccountDetails
+  }
+  dependsOn: [
+    storageAccountModule
+  ]
 }
 
 module logicAppModule './logicApp.bicep' = {
@@ -58,6 +72,19 @@ module networkingModule './networking.bicep' = {
   }
 }
 
+module functionAppVnetIntegration 'functionAppVnetIntegration.bicep' = {
+  name:'rg-deploy-functionApp-vnetIntegration'
+  params:{
+    vnetName:vnetName
+    functionAppSubnetName:subnets.functionAppSubnetName
+    functionAppName:functionAppName
+  }
+  dependsOn:[
+    functionAppModule
+    networkingModule
+  ]
+}
+
 module logicAppVnetIntegration 'logicAppVnetIntegration.bicep' = {
   name: 'rg-deploy-logicApp-vnetIntegration'
   params: {
@@ -85,9 +112,11 @@ module privateEndpoints 'privateEndpoints.bicep' = {
     storageAccountPrivateLinkName: storageAccountPrivateLinkName
     storageAccountPrivateEndpointName: storageAccountPrivateEndpointName
     logicAppName: logicAppName
+    functionAppName: functionAppName
     defaultSubnetName: defaultSubnetName
   }
   dependsOn: [
+    functionAppModule
     logicAppModule
     networkingModule
   ]  
@@ -99,6 +128,7 @@ module apimModule './apim.bicep' = {
     vnetName: vnetName
     apimName: apimProperties.apimName
     logicAppName: logicAppName
+    functionAppName: functionAppName
     apimSkuName: apimProperties.sku.name
     apimSkuCapacity: apimProperties.sku.capacity
     apimSubnetName: subnets.apimSubnetName
