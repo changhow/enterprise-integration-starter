@@ -32,6 +32,9 @@ resource appServiceFunctionApp 'Microsoft.Web/sites@2020-10-01'= {
   properties: {
     enabled:true
     serverFarmId: appServicePlanFunctionApp.id
+    siteConfig:{
+      linuxFxVersion: 'PYTHON|3.9'
+    }
   }
 }
 
@@ -41,7 +44,6 @@ resource funcapp_appSettings 'Microsoft.Web/sites/config@2021-03-01' = {
   name: '${appServiceFunctionApp.name}/appsettings'
   properties: {
     siteConfig:{
-      linuxFxVersion: 'PYTHON|3.9'
       appSettings:[
         {
           name: 'AzureWebJobsStorage'
