@@ -65,6 +65,7 @@ module networkingModule './networking.bicep' = {
     vnetAddressPrefix: subnets.vnetAddressPrefix
     defaultSnetAddressPrefix: subnets.defaultSnetAddressPrefix
     logicAppsSnetAddressPrefix: subnets.logicAppsSnetAddressPrefix
+    functionAppsSnetAddressPrefix: subnets.functionAppsSnetAddressPrefix
     apimSnetAddressPrefix: subnets.apimSnetAddressPrefix
     applicationGatewaySnetAddressPrefix: subnets.applicationGatewaySnetAddressPrefix
     bastionSubnetAddressPrefix: subnets.bastionSubnetAddressPrefix

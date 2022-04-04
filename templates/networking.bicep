@@ -7,6 +7,7 @@ param defaultSubnetName string
 param vnetAddressPrefix string
 param defaultSnetAddressPrefix string
 param logicAppsSnetAddressPrefix string
+param functionAppsSnetAddressPrefix string
 param apimSnetAddressPrefix string
 param applicationGatewaySnetAddressPrefix string
 param bastionSubnetAddressPrefix string
@@ -51,7 +52,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
       {
         name: functionAppSubnetName
         properties: {
-          addressPrefix: logicAppsSnetAddressPrefix
+          addressPrefix: functionAppsSnetAddressPrefix
           delegations: [
             {
               name: 'delegation'
