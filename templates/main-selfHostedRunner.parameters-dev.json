@@ -10,6 +10,7 @@
           "vnetAddressPrefix": "10.0.0.0/16",
           "defaultSnetAddressPrefix": "10.0.0.0/24",
           "logicAppSubnetName": "snet-eis-dev-auea-logic",
+          "functionAppSubnetName": "snet-eis-dev-auea-function",
           "logicAppsSnetAddressPrefix": "10.0.1.0/24",
           "apimSubnetName": "snet-eis-dev-auea-apim",
           "apimSnetAddressPrefix": "10.0.2.0/24",

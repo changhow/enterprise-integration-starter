@@ -16,8 +16,9 @@ resource appServicePlanFunctionApp 'Microsoft.Web/serverfarms@2020-10-01' = {
   name: functionAppAspName
   location: resourceGroup().location
   sku:{
-    name:'Y1'
-    tier:'Dynamic'
+    name: 'P2V2'
+    tier: 'Dynamic'
+    size: 'P2V2'
   }
   kind:'linux'
   properties:{

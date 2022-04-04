@@ -59,6 +59,7 @@ module networkingModule './networking.bicep' = {
   params: {
     vnetName: vnetName
     logicAppSubnetName: subnets.logicAppSubnetName
+    functionAppSubnetName: subnets.functionAppSubnetName
     apimSubnetName: subnets.apimSubnetName
     applicationGatewaySubnetName: subnets.applicationGatewaySubnetName
     vnetAddressPrefix: subnets.vnetAddressPrefix

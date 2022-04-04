@@ -1,5 +1,6 @@
 param vnetName string
 param logicAppSubnetName string
+param functionAppSubnetName string
 param apimSubnetName string
 param applicationGatewaySubnetName string
 param defaultSubnetName string
@@ -33,6 +34,22 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
       }
       {
         name: logicAppSubnetName
+        properties: {
+          addressPrefix: logicAppsSnetAddressPrefix
+          delegations: [
+            {
+              name: 'delegation'
+              properties: {
+                serviceName: 'Microsoft.Web/serverfarms'
+              }
+            }
+          ]
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Disabled'
+        }
+      }
+      {
+        name: functionAppSubnetName
         properties: {
           addressPrefix: logicAppsSnetAddressPrefix
           delegations: [
